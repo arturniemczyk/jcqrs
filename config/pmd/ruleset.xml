@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<ruleset name="LeanStacks PMD Ruleset" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+
+    <description>
+        Rules
+    </description>
+
+    <rule ref="category/java/bestpractices.xml" >
+        <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+    </rule>
+
+    <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts" >
+        <properties>
+            <property name="maximumAsserts">
+                <value>3</value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/codestyle.xml" >
+        <exclude name="AtLeastOneConstructor"/>
+    </rule>
+
+    <rule ref="category/java/design.xml" >
+        <exclude name="LawOfDemeter" />
+    </rule>
+
+    <rule ref="category/java/documentation.xml" />
+
+    <rule ref="category/java/documentation.xml/CommentRequired" >
+        <properties>
+            <property name="serialVersionUIDCommentRequired">
+                <value>Unwanted</value>
+            </property>
+            <property name="enumCommentRequirement">
+                <value>Unwanted</value>
+            </property>
+            <property name="protectedMethodCommentRequirement">
+                <value>Unwanted</value>
+            </property>
+            <property name="publicMethodCommentRequirement">
+                <value>Ignored</value>
+            </property>
+            <property name="fieldCommentRequirement">
+                <value>Ignored</value>
+            </property>
+            <property name="headerCommentRequirement">
+                <value>Ignored</value>
+            </property>
+            <property name="methodWithOverrideCommentRequirement">
+                <value>Unwanted</value>
+            </property>
+            <property name="accessorCommentRequirement">
+                <value>Unwanted</value>
+            </property>
+        </properties>
+    </rule>
+
+    <rule ref="category/java/errorprone.xml" >
+        <exclude name="AvoidDuplicateLiterals" />
+        <exclude name="SimpleDateFormatNeedsLocale" />
+        <exclude name="BeanMembersShouldSerialize" />
+    </rule>
+
+    <rule ref="category/java/multithreading.xml" />
+
+    <rule ref="category/java/performance.xml" />
+
+</ruleset>

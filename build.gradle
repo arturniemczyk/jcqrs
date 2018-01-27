@@ -1,0 +1,47 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.spotbugs:gradlePlugin:1.6.0"
+    }
+}
+
+apply plugin: "com.github.spotbugs"
+
+apply plugin: 'idea'
+apply plugin: 'java'
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies{
+
+    testCompile(
+            'org.assertj:assertj-core:3.9.0',
+            'junit:junit:4.12'
+    )
+    compile(
+            'com.google.code.gson:gson:2.8.2',
+            'org.json:json:20171018'
+    )
+
+}
+
+pmd {
+    toolVersion = '6.0.1'
+    ruleSetConfig = rootProject.resources.text.fromFile('config/pmd/ruleset.xml')
+}
+
+tasks.withType(com.github.spotbugs.SpotBugsTask) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
