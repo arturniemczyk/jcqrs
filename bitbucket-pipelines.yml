@@ -1,0 +1,7 @@
+image: gradle:jdk9
+
+pipelines:
+  default:
+    - step:
+        script:
+          - gradle clean build --info

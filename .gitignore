@@ -1,7 +1,5 @@
-# Java class files
+# Java class and dirs files
 *.class
-
-
 out/
 
 # Local configuration file (sdk path, etc)
@@ -18,3 +16,7 @@ local.properties
 .gradle/
 build/
 bin/
+
+#Docker
+Dockerfile
+docker-compose.yml

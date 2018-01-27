@@ -11,6 +11,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.TimeZone;
 
 public class JsonSerializerTest {
 
@@ -88,6 +89,8 @@ public class JsonSerializerTest {
 
     @Test
     public void serializeDateAndTime() throws JSONException, ClassNotFoundException, ParseException {
+
+        TimeZone.setDefault(TimeZone.getTimeZone("Europe/Warsaw"));
 
         final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd H:m:sXXX");
         final Date date = formatter.parse("2016-01-24 15:42:11+01:00");
