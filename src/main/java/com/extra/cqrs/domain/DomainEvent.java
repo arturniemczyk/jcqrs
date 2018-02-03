@@ -1,6 +1,6 @@
 package com.extra.cqrs.domain;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class DomainEvent {
 
@@ -10,13 +10,13 @@ public class DomainEvent {
 
     private final Object payload;
 
-    private final Date createdAt;
+    private final LocalDateTime createdAt;
 
-    public DomainEvent(final String id, final int version, final Object payload, final Date createdAt) {
+    public DomainEvent(final String id, final int version, final Object payload, final LocalDateTime createdAt) {
         this.id = id;
         this.version = version;
         this.payload = payload;
-        this.createdAt = new Date(createdAt.getTime());
+        this.createdAt = createdAt;
     }
 
     public String getId() {
@@ -31,8 +31,8 @@ public class DomainEvent {
         return payload;
     }
 
-    public Date getCreatedAt() {
-        return new Date(createdAt.getTime());
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
     }
 
     public String getType() {

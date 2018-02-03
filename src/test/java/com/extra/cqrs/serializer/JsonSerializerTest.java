@@ -7,10 +7,9 @@ import com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.TimeZone;
 
 public class JsonSerializerTest {
@@ -72,33 +71,31 @@ public class JsonSerializerTest {
     }
 
     @Test
-    public void deserializeDateAndTimeWithoutMsPart() throws JSONException, ClassNotFoundException, ParseException {
+    public void deserializeObjectWithDateTime() throws JSONException, ClassNotFoundException, ParseException {
 
-        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"date\":\"2016-01-24T15:42:11+01:00\",\"type\":\"some type\"}}");
+        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
 
         assertThat(object).isInstanceOf(SerializableObjectWithDates.class);
 
         final SerializableObjectWithDates actual = (SerializableObjectWithDates) object;
 
-        final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd H:m:sX");
-        final Date expectedDate = formatter.parse("2016-01-24 15:42:11+01:00");
+        final LocalDateTime dateTime = LocalDateTime.parse("2016-01-24T15:42:11", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'H:m:s"));
 
-        assertThat(actual).extracting("name", "date", "type").contains("test1", expectedDate, "some type");
+        assertThat(actual).extracting("name", "dateTime", "type").contains("test1", dateTime, "some type");
 
     }
 
     @Test
-    public void serializeDateAndTime() throws JSONException, ClassNotFoundException, ParseException {
+    public void serializeObjectWithDateTime() throws JSONException, ClassNotFoundException, ParseException {
 
         TimeZone.setDefault(TimeZone.getTimeZone("Europe/Warsaw"));
 
-        final DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd H:m:sXXX");
-        final Date date = formatter.parse("2016-01-24 15:42:11+01:00");
-        final SerializableObjectWithDates object = new SerializableObjectWithDates("test1", date, "some type");
+        final LocalDateTime dateTime = LocalDateTime.parse("2016-01-24T15:42:11", DateTimeFormatter.ofPattern("yyyy-MM-dd'T'H:m:s"));
+        final SerializableObjectWithDates object = new SerializableObjectWithDates("test1", dateTime, "some type");
 
         final String actual = serializer.serialize(object);
 
-        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"date\":\"2016-01-24T15:42:11+01:00\",\"type\":\"some type\"}}");
+        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
 
     }
 

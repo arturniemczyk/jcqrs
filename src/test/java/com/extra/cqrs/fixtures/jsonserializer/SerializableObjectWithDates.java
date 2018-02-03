@@ -1,18 +1,18 @@
 package com.extra.cqrs.fixtures.jsonserializer;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 public class SerializableObjectWithDates {
 
     private final String name;
 
-    private final Date date;
+    private final LocalDateTime dateTime;
 
     private final String type;
 
-    public SerializableObjectWithDates(final String name, final Date date, final String type) {
+    public SerializableObjectWithDates(final String name, final LocalDateTime dateTime, final String type) {
         this.name = name;
-        this.date = new Date(date.getTime());
+        this.dateTime = dateTime;
         this.type = type;
     }
 
@@ -20,8 +20,8 @@ public class SerializableObjectWithDates {
         return name;
     }
 
-    public Date getDate() {
-        return new Date(date.getTime());
+    public LocalDateTime getDateTime() {
+        return dateTime;
     }
 
     public String getType() {

@@ -1,7 +1,7 @@
 package com.extra.cqrs.domain;
 
+import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 public class DomainEventStream implements Iterable<DomainEvent> {
@@ -9,7 +9,7 @@ public class DomainEventStream implements Iterable<DomainEvent> {
     private final List<DomainEvent> messages;
 
     public DomainEventStream() {
-        this.messages = new LinkedList<>();
+        this.messages = new ArrayList<>();
     }
 
     public DomainEventStream(final List<DomainEvent> messages) {
