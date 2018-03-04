@@ -1,9 +1,9 @@
 package com.extra.cqrs.serializer;
 
-import com.extra.cqrs.fixtures.jsonserializer.SerializableObject;
+import com.extra.cqrs.fixtures.json.serializer.SerializableObject;
 import static org.assertj.core.api.Assertions.assertThat;
 
-import com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates;
+import com.extra.cqrs.fixtures.json.serializer.SerializableObjectWithDates;
 import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,13 +32,13 @@ public class JsonSerializerTest {
         final SerializableObject object = new SerializableObject("test1", "12-12-2012", "some type");
         final String actual = serializer.serialize(object);
 
-        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":\"12-12-2012\",\"type\":\"some type\"}}");
+        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":\"12-12-2012\",\"type\":\"some type\"}}");
     }
 
     @Test
     public void deserializeDeserializableString() throws ClassNotFoundException, JSONException {
 
-        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":\"12-12-2012\",\"type\":\"some type\"}}");
+        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":\"12-12-2012\",\"type\":\"some type\"}}");
 
         assertThat(object).isInstanceOf(SerializableObject.class);
 
@@ -54,14 +54,14 @@ public class JsonSerializerTest {
 
         final String actual = serializer.serialize(object);
 
-        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":null,\"type\":\"some type\"}}");
+        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"date\":null,\"type\":\"some type\"}}");
 
     }
 
     @Test
     public void deserializeWithNullProperty() throws ClassNotFoundException, JSONException {
 
-        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"type\":\"some type\"}}");
+        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObject\",\"data\":{\"name\":\"test1\",\"type\":\"some type\"}}");
 
         assertThat(object).isInstanceOf(SerializableObject.class);
 
@@ -73,7 +73,7 @@ public class JsonSerializerTest {
     @Test
     public void deserializeObjectWithDateTime() throws JSONException, ClassNotFoundException, ParseException {
 
-        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
+        final Object object = serializer.deserialize("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
 
         assertThat(object).isInstanceOf(SerializableObjectWithDates.class);
 
@@ -95,7 +95,7 @@ public class JsonSerializerTest {
 
         final String actual = serializer.serialize(object);
 
-        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.jsonserializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
+        assertThat(actual).isEqualTo("{\"class\":\"com.extra.cqrs.fixtures.json.serializer.SerializableObjectWithDates\",\"data\":{\"name\":\"test1\",\"dateTime\":\"2016-01-24T15:42:11\",\"type\":\"some type\"}}");
 
     }
 

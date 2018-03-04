@@ -1,4 +1,4 @@
-package com.extra.cqrs.fixtures.jsonserializer;
+package com.extra.cqrs.fixtures.json.serializer;
 
 import java.time.LocalDateTime;
 

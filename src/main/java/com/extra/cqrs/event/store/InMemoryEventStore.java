@@ -6,13 +6,13 @@ import com.extra.cqrs.event.store.exception.ConcurrencyException;
 import com.extra.cqrs.event.store.exception.EventStreamNotFound;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class InMemoryEventStore implements EventStore {
 
-    private final Map<String, List<DomainEvent>> events = new ConcurrentHashMap<>();
+    private final Map<String, List<DomainEvent>> events = new HashMap<>();
 
     @Override
     public DomainEventStream load(final String id) throws EventStreamNotFound {
