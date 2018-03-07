@@ -1,21 +1,27 @@
 package com.extra.cqrs.event.handling;
 
-public class InMemoryEventBus {
+import com.extra.cqrs.domain.DomainEvent;
+import com.extra.cqrs.domain.DomainEventListener;
+import com.extra.cqrs.domain.DomainEventStream;
 
-//    private listeners = ;
-//
-//    public function register(DomainEventListener $listener): void
-//    {
-//        $this->listeners[] = $listener;
-//    }
-//
-//    public function publish(DomainEventStream $stream): void
-//    {
-//        foreach ($this->listeners as $listener) {
-//        foreach ($stream as $message) {
-//            $listener->handle($message);
-//        }
-//    }
-//    }
+import java.util.ArrayList;
+import java.util.List;
+
+public class InMemoryEventBus implements EventBus {
+
+    private final List<DomainEventListener> listeners = new ArrayList<>();
+
+    public void register(final DomainEventListener listener) {
+        listeners.add(listener);
+    }
+
+    @Override
+    public void publish(final DomainEventStream stream) {
+        for (final DomainEventListener listener: listeners) {
+            for (final DomainEvent event: stream) {
+                listener.handle(event);
+            }
+        }
+    }
 
 }

@@ -9,6 +9,7 @@
 
     <rule ref="category/java/bestpractices.xml" >
         <exclude name="JUnitAssertionsShouldIncludeMessage"/>
+        <exclude name="UnusedPrivateMethod"/>
     </rule>
 
     <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts" >

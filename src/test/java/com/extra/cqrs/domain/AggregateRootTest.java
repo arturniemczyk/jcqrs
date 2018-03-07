@@ -1,6 +1,6 @@
 package com.extra.cqrs.domain;
 
-import com.extra.cqrs.fixtures.aggregate.root.AggregateRootTestEvent1;
+import com.extra.cqrs.fixtures.aggregate.root.AggregateRootChangeEvent;
 import com.extra.cqrs.fixtures.aggregate.root.TestAggregateRoot;
 import org.junit.Rule;
 import org.junit.Test;
@@ -29,16 +29,16 @@ public class AggregateRootTest {
     @Test
     public void testApplyingAnEventIncrementsVersion() {
         final TestAggregateRoot aggregateRoot = new TestAggregateRoot();
-        aggregateRoot.apply(new AggregateRootTestEvent1());
-        aggregateRoot.apply(new AggregateRootTestEvent1());
-        aggregateRoot.apply(new AggregateRootTestEvent1());
+        aggregateRoot.apply(new AggregateRootChangeEvent());
+        aggregateRoot.apply(new AggregateRootChangeEvent());
+        aggregateRoot.apply(new AggregateRootChangeEvent());
         assertThat(aggregateRoot.getVersion()).isEqualTo(3);
     }
 
     @Test
     public void markChangesAsCommitted() {
         final TestAggregateRoot aggregateRoot = new TestAggregateRoot();
-        aggregateRoot.apply(new AggregateRootTestEvent1());
+        aggregateRoot.apply(new AggregateRootChangeEvent());
         aggregateRoot.markChangesAsCommitted();
         assertThat(aggregateRoot.getUncommittedChanges()).isEmpty();
     }
@@ -51,13 +51,13 @@ public class AggregateRootTest {
 
         final TestAggregateRoot aggregateRoot = new TestAggregateRoot();
         aggregateRoot.loadFromStream(createDomainMessageStream(List.of(
-                new AggregateRootTestEvent1(),
-                new AggregateRootTestEvent1(),
-                new AggregateRootTestEvent1()
+                new AggregateRootChangeEvent(),
+                new AggregateRootChangeEvent(),
+                new AggregateRootChangeEvent()
         ), 0));
 
         aggregateRoot.loadFromStream(createDomainMessageStream(List.of(
-                new AggregateRootTestEvent1()
+                new AggregateRootChangeEvent()
         ), 3));
     }
 
@@ -69,18 +69,18 @@ public class AggregateRootTest {
 
         final TestAggregateRoot aggregateRoot = new TestAggregateRoot();
         aggregateRoot.loadFromStream(createDomainMessageStream(List.of(
-                new AggregateRootTestEvent1(),
-                new AggregateRootTestEvent1(),
-                new AggregateRootTestEvent1()
+                new AggregateRootChangeEvent(),
+                new AggregateRootChangeEvent(),
+                new AggregateRootChangeEvent()
         ), 2));
     }
 
     @Test
     public void methodIsCalledAfterApplyingEvent() {
         final TestAggregateRoot aggregateRoot = spy(TestAggregateRoot.class);
-        final AggregateRootTestEvent1 event = new AggregateRootTestEvent1();
+        final AggregateRootChangeEvent event = new AggregateRootChangeEvent();
         aggregateRoot.apply(event);
-        verify(aggregateRoot, times(1)).onAggregateRootTestEvent1(event);
+        verify(aggregateRoot, times(1)).onAggregateRootChangeEvent(event);
     }
 
     private DomainEventStream createDomainMessageStream(final List<Object> events, final int version) {

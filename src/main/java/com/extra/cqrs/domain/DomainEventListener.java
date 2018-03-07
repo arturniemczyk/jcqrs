@@ -26,7 +26,9 @@ public class DomainEventListener {
         final String methodName = event.getClass().getSimpleName();
 
         try {
-            return this.getClass().getMethod("on" + methodName, event.getClass());
+            final Method m = this.getClass().getDeclaredMethod("on" + methodName, event.getClass());
+            m.setAccessible(true);
+            return m;
         } catch (NoSuchMethodException e) {
             return null;
         }
